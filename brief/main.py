@@ -1,18 +1,24 @@
+import logging
 import os
 
 from fastapi import FastAPI
 
+from brief.briefs.modules import modules
+
 app = FastAPI()
 
 # to start uvicorn main:app --reload
-TASK_DIR = os.environ.get('BRIEF_DIR', 'briefs')
+
+logging.basicConfig()
+logger = logging.getLogger(__name__)
 
 
 @app.get("/")
-def read_root():
-    return {"Hello": "World"}
-
-
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: str = None):
-    return {"item_id": item_id, "q": q}
+async def read_root():
+    results = {}
+    for module in modules:
+        try:
+            results[module.name] = await module.run_brief()
+        except Exception:
+            logger.error(f'{module.name} had an exception.')
+    return results
