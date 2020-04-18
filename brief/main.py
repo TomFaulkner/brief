@@ -23,5 +23,5 @@ async def read_root():
             try:
                 results[module.name] = await module.run_brief(session)
             except Exception:
-                logger.error(f'{module.name} had an exception.')
+                logger.error(f"{module.name} had an exception.")
     return results

@@ -53,12 +53,16 @@ from aiohttp import ClientSession
 from brief.utils.decorators import ATimedMemo
 
 
-name = 'open_weather_map'
+name = "open_weather_map"
 
 
 @ATimedMemo(minutes=10)  # owm suggests a 10 minute cache
-async def get_weather(city_id: str, api_key: str, units: str, session: ClientSession) -> Dict:
-    url = f"https://api.openweathermap.org/data/2.5/weather?id={city_id}&appid={api_key}"
+async def get_weather(
+    city_id: str, api_key: str, units: str, session: ClientSession
+) -> Dict:
+    url = (
+        f"https://api.openweathermap.org/data/2.5/weather?id={city_id}&appid={api_key}"
+    )
     if units:
         url += f"&units={units}"
     async with session.get(url) as resp:
@@ -78,10 +82,12 @@ async def run_brief(session: ClientSession):
     try:
         api_key = os.environ["BRIEF_OWM_API_KEY"]
     except KeyError:
-        logger.error('No OpenWeatherMap API Key')
+        logger.error("No OpenWeatherMap API Key")
         raise KeyError("No OpenWeatherMap API Key, set BRIEF_OWM_API_KEY variable")
 
     city_id = os.environ.get("BRIEF_OWM_CITY_ID", "4333669")  # Monroe, LA, US
     units = os.environ.get("BRIEF_OWM_UNITS", "imperial")
-    weather = await get_weather(city_id, api_key, units, session)  # trying to call a coroutine?
+    weather = await get_weather(
+        city_id, api_key, units, session
+    )  # trying to call a coroutine?
     return weather
