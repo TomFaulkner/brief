@@ -1,0 +1,10 @@
+* Brief - REST API Backend to gather data for Daily Briefing displays
+** What does that mean?
+   The goal of this project is to gather data from various APIs or other sources and return them via REST API. I've been wanting a modern digital picture frame that displays information I choose. This serves the purpose of being the backend of said project. The frontend, probably a React SPA with a mobile UI running on a Pi or a phone with a full-screen browser, doesn't exist yet, but may some day.
+** How do I use it?
+   - In a terminal run the following:
+    : pip install -r requirements.txt
+    : BRIEF_OWM_API_KEY=your_api_key_here BRIEF_OWM_CITY_ID=4333669 uvicorn brief.main:app --reload
+   - Using your favorite REST API client, or a browser, hit localhost:8000.
+   - Parse the json and display it in a pretty manner.
+   
