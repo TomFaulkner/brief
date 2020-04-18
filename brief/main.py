@@ -1,6 +1,8 @@
 import logging
 import os
 
+import aiohttp
+
 from fastapi import FastAPI
 
 from brief.briefs.modules import modules
@@ -17,8 +19,9 @@ logger = logging.getLogger(__name__)
 async def read_root():
     results = {}
     for module in modules:
-        try:
-            results[module.name] = await module.run_brief()
-        except Exception:
-            logger.error(f'{module.name} had an exception.')
+        async with aiohttp.ClientSession() as session:
+            try:
+                results[module.name] = await module.run_brief(session)
+            except Exception:
+                logger.error(f'{module.name} had an exception.')
     return results

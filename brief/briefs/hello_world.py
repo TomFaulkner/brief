@@ -1,7 +1,7 @@
 name = 'hello_world'
 
 
-async def run_brief():
+async def run_brief(session=None):
     return "Hello world!"
 
 
