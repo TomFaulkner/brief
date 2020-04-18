@@ -46,13 +46,11 @@ Example return data:
 """
 import logging
 import os
-
 from typing import Dict
 
 from aiohttp import ClientSession
 
 from brief.utils.decorators import ATimedMemo
-
 
 name = "open_weather_map"
 logger = logging.getLogger(__name__)

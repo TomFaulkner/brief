@@ -2,7 +2,6 @@ import logging
 import os
 
 import aiohttp
-
 from fastapi import FastAPI
 
 from brief.briefs.modules import modules
