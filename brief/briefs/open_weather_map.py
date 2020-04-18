@@ -44,6 +44,7 @@ Example return data:
     "cod": 200,
 }
 """
+import logging
 import os
 
 from typing import Dict
@@ -54,6 +55,7 @@ from brief.utils.decorators import ATimedMemo
 
 
 name = "open_weather_map"
+logger = logging.getLogger(__name__)
 
 
 @ATimedMemo(minutes=10)  # owm suggests a 10 minute cache
